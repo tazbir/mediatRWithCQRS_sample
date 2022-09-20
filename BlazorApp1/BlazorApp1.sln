@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "BlazorApp1\BlazorApp1.csproj", "{AB90A609-2864-4126-BFC2-3A8FEEC0AF49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoLib", "DemoLib\DemoLib.csproj", "{DFF9BAE8-EA5B-468A-A612-DF7AF61E1465}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAPI", "DemoAPI\DemoAPI.csproj", "{52E15B67-3AC6-4757-9C41-3883B2E41CC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB90A609-2864-4126-BFC2-3A8FEEC0AF49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB90A609-2864-4126-BFC2-3A8FEEC0AF49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB90A609-2864-4126-BFC2-3A8FEEC0AF49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB90A609-2864-4126-BFC2-3A8FEEC0AF49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF9BAE8-EA5B-468A-A612-DF7AF61E1465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF9BAE8-EA5B-468A-A612-DF7AF61E1465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF9BAE8-EA5B-468A-A612-DF7AF61E1465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF9BAE8-EA5B-468A-A612-DF7AF61E1465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52E15B67-3AC6-4757-9C41-3883B2E41CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52E15B67-3AC6-4757-9C41-3883B2E41CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52E15B67-3AC6-4757-9C41-3883B2E41CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52E15B67-3AC6-4757-9C41-3883B2E41CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
