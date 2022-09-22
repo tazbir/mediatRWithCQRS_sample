@@ -42,8 +42,10 @@ namespace DemoAPI.Controllers
 
         // PUT api/<PersonController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<PersonModel>  Put(Guid id, [FromBody] PersonModel model)
         {
+            var dataModel = new UpdatePersonCommand(id, model.FirstName, model.LastName);
+            return await _mediator.Send(dataModel);
         }
 
         // DELETE api/<PersonController>/5

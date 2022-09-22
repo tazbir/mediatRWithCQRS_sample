@@ -1,4 +1,5 @@
 ﻿using DemoLib.DataAccess.Models;
+using DemoLib.EventService;
 
 namespace DemoLib.DataAccess;
 
@@ -7,16 +8,23 @@ public interface IDemoDataAccess
     List<PersonModel> GetPeople();
     PersonModel InsertPerson(string firstName, string lastName);
     PersonModel GetPeopleById(int requestId);
+    PersonModel UpdatePerson(Guid requestId, string requestFirstName, string requestLastName);
 }
 
 public class DemoDataAccess : IDemoDataAccess
 {
+    private readonly IRepository<PersonModel> _eventRepository;
     private readonly List<PersonModel> _people = new();
 
-    public DemoDataAccess()
+    public DemoDataAccess(IRepository<PersonModel> eventRepository)
     {
-        _people.Add(new PersonModel {Id = 1, FirstName = "Tazbir", LastName = "Bhuiyan"});
-        _people.Add(new PersonModel {Id = 2, FirstName = "Sufian", LastName = "Saori"});
+        _eventRepository = eventRepository;
+        var user1 = new PersonModel("Tazbir", "Bhuiyan");
+        _people.Add(user1);
+        _eventRepository.Save(user1, -1);
+        var user2 = new PersonModel("Sufian", "Saori");
+        _people.Add(user2);
+        _eventRepository.Save(user2, -1);
     }
 
     public List<PersonModel> GetPeople()
@@ -26,18 +34,26 @@ public class DemoDataAccess : IDemoDataAccess
 
     public PersonModel InsertPerson(string firstName, string lastName)
     {
-        var model = new PersonModel
-        {
-            FirstName = firstName,
-            LastName = lastName
-        };
-        model.Id = _people.Max(x => x.Id) + 1;
+        var model = new PersonModel(firstName, lastName);
         _people.Add(model);
+        _eventRepository.Save(model, -1);
         return model;
+    }
+    
+    public PersonModel UpdatePerson(Guid id, string firstName, string lastName)
+    {
+        var result = _people.FirstOrDefault(x => x.Id == id);
+        result.FirstName = firstName;
+        result.LastName = lastName;
+        var eventObj = _eventRepository.GetById(id);
+        result.UpdateChanges();
+        _eventRepository.Save(result, result.Version);
+        return result;
     }
 
     public PersonModel GetPeopleById(int requestId)
     {
-        return _people.FirstOrDefault(x => x.Id == requestId);
+        throw new NotImplementedException();
+        // return _people.FirstOrDefault(x => x.Id == requestId);
     }
 }
