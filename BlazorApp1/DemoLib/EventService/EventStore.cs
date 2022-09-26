@@ -8,6 +8,7 @@ namespace DemoLib.EventService
     {
         void SaveEvents(Guid aggregateId, IEnumerable<Event> events, int expectedVersion);
         List<Event> GetEventsForAggregate(Guid aggregateId);
+        Event GetLatestEventObjbyId(Guid id);
     }
 
     public class EventStore : IEventStore
@@ -81,6 +82,18 @@ namespace DemoLib.EventService
             }
 
             return eventDescriptors.Select(desc => desc.EventData).ToList();
+        }
+
+        public Event GetLatestEventObjbyId(Guid id)
+        {
+            List<EventDescriptor> eventDescriptors;
+            if (!_current.TryGetValue(id, out eventDescriptors))
+            {
+                throw new AggregateNotFoundException();
+            }
+
+            var maxVersion = eventDescriptors.Max(x => x.Version);
+            return eventDescriptors.Select(desc => desc.EventData).Where(x=>x.version==maxVersion).FirstOrDefault();
         }
     }
 

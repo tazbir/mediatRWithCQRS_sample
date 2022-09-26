@@ -29,6 +29,10 @@ public class DemoDataAccess : IDemoDataAccess
 
     public List<PersonModel> GetPeople()
     {
+        foreach (var person in _people)
+        {
+            person.Version = _eventRepository.GetlatestObjById(person.Id).Version;
+        }
         return _people;
     }
 
@@ -45,7 +49,9 @@ public class DemoDataAccess : IDemoDataAccess
         var result = _people.FirstOrDefault(x => x.Id == id);
         result.FirstName = firstName;
         result.LastName = lastName;
-        var eventObj = _eventRepository.GetById(id);
+        var eventObj = _eventRepository.GetlatestObjById(id);
+        result.Version = eventObj.Version;
+        _eventRepository.UpdatePreviousEntriesById(id);
         result.UpdateChanges();
         _eventRepository.Save(result, result.Version);
         return result;
